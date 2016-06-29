@@ -1,0 +1,42 @@
+<header>
+  <div class="page-title">
+    <h1>Service Standard</h1>
+  </div>
+</header>
+
+<div class="row">
+  <%= form_for(:service_standard, html: { class: "js-protect-data" } ) do |f| %>
+
+  <div class="col-md-12">
+    <div class="well">
+      <h2>Service standard content</h2>
+
+      <div class="form-group">
+        <%= f.label :title %>
+        <%= f.text_field :title, class: 'input-md-12 form-control' %>
+      </div>
+
+      <div class='form-group'>
+        <%= f.label :introduction %>
+        <%= f.text_area :introduction, class: 'input-md-12 form-control text-area-auto-size js-text-area-auto-size' %>
+      </div>
+
+      <div class='form-group'>
+        <%= f.label :body %>
+        <%= f.text_area :body, class: 'input-md-12 form-control text-area-auto-size js-text-area-auto-size' %>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div class="btn-toolbar" role="toolbar">
+          <%= f.submit "Save and publish", class: 'btn btn-default add-right-margin js-ok-to-navigate-away', name: :save %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <% end %>
+</div>
