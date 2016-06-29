@@ -1,5 +1,8 @@
 require 'capybara/rspec'
+require 'plek'
 require 'webmock/rspec'
+
+require 'gds_api/test_helpers/publishing_api_v2'
 
 WebMock.disable_net_connect!(allow_localhost: true)
 
@@ -44,6 +47,8 @@ RSpec.configure do |config|
     # `true` in RSpec 4.
     mocks.verify_partial_doubles = true
   end
+
+  config.include(GdsApi::TestHelpers::PublishingApiV2)
 
 # The settings below are suggested to provide a good initial experience
 # with RSpec, but feel free to customize to your heart's content.
