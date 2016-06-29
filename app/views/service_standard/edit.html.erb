@@ -5,7 +5,7 @@
 </header>
 
 <div class="row">
-  <%= form_for(:service_standard, html: { class: "js-protect-data" } ) do |f| %>
+  <%= form_for(:service_standard, url: service_standard_path, method: :patch, html: { class: "js-protect-data" } ) do |f| %>
 
   <div class="col-md-12">
     <div class="well">

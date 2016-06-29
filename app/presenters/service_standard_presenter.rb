@@ -1,12 +1,11 @@
 class ServiceStandardPresenter
-  SERVICE_STANDARD_CONTENT_ID = "00f693d4-866a-4fe6-a8d6-09cd7db8980b".freeze
 
-  def initialize(points)
-    @points = points
+  def initialize(service_standard)
+    @service_standard = service_standard
   end
 
   def content_id
-    SERVICE_STANDARD_CONTENT_ID
+    service_standard.content_id
   end
 
   def content_payload
@@ -20,10 +19,10 @@ class ServiceStandardPresenter
         { type: 'exact', path: '/service-manual/service-standard' }
       ],
       schema_name: 'service_manual_service_standard',
-      title: 'Digital Service Standard',
+      title: service_standard.title,
       details: {
-        introduction: "The Digital Service Standard is a set of 18 criteria to help government create and run good digital services.",
-        body: "All public facing transactional services must meet the standard. It’s used by departments and the Government Digital Service to check whether a service is good enough for public use.",
+        introduction: service_standard.introduction,
+        body: service_standard.body,
         points: points_payload,
       }
     }
@@ -31,10 +30,10 @@ class ServiceStandardPresenter
 
 private
 
-  attr_reader :points
+  attr_reader :service_standard
 
   def points_payload
-    point_payloads = points.map do |point|
+    point_payloads = service_standard.points.map do |point|
       edition = point.live_edition
 
       if edition

@@ -16,7 +16,7 @@ Rails.application.routes.draw do
   resources :slug_migrations
 
   resource 'service-standard', {
-    only: [:edit],
+    only: [:edit, :update],
     :controller => :service_standard,
     :as => :service_standard
   }

@@ -3,6 +3,8 @@ require 'rails_helper'
 RSpec.describe 'Update the service standard', type: :feature do
   context 'when the service standard does not exist' do
     before do
+      stub_any_publishing_api_put_content
+      stub_any_publishing_api_publish
       publishing_api_does_not_have_item ServiceStandard.content_id
     end
 
@@ -13,6 +15,34 @@ RSpec.describe 'Update the service standard', type: :feature do
       expect(find_field("Title").text).to be_blank
       expect(find_field("Introduction").text).to be_blank
       expect(find_field("Body").text).to be_blank
+    end
+
+    it 'creates and publishes the service standard' do
+      visit edit_service_standard_path
+
+      fill_in 'Title', with: 'Digital Service Standard'
+      fill_in 'Introduction', with: 'The Service Standard is a set of 18 criteria'
+      fill_in 'Body', with: 'All public facing services must meet the standard.'
+
+      click_first_button 'Save and publish'
+
+      assert_publishing_api_put_content(
+        ServiceStandard.content_id,
+        request_json_includes(
+          title: 'Digital Service Standard',
+          details: {
+            introduction: 'The Service Standard is a set of 18 criteria',
+            body: 'All public facing services must meet the standard.',
+            points: []
+          }
+        )
+      )
+
+      assert_publishing_api_publish ServiceStandard.content_id
+
+      within '.alert' do
+        expect(page).to have_content('Service standard has been published')
+      end
     end
   end
 

@@ -1,19 +1,14 @@
 require "rails_helper"
 
-RSpec.describe ServiceStandardPresenter, "#content_id" do
-  it "returns a preassigned UUID" do
-    point_scope = double(:point_scope)
-
-    expect(
-      described_class.new(point_scope).content_id
-    ).to eq("00f693d4-866a-4fe6-a8d6-09cd7db8980b")
-  end
-end
-
 RSpec.describe ServiceStandardPresenter, "#content_payload" do
   it "returns a hash suitable for a service standard draft" do
     edition = create(:edition, summary: "This is a summary", title: "1. Understand user needs", state: "published")
     point = create(:point, editions: [edition], slug: "/service-manual/service-standard/understand-user-needs")
+
+    model = ServiceStandard.new
+    model.title = "Digital Service Standard"
+    model.introduction = "The Digital Service Standard is a set of 18 criteria to help government create and run good digital services."
+    model.body = "All public facing transactional services must meet the standard. It’s used by departments and the Government Digital Service to check whether a service is good enough for public use."
 
     expected_payload = {
       base_path: '/service-manual/service-standard',
@@ -25,7 +20,7 @@ RSpec.describe ServiceStandardPresenter, "#content_payload" do
         { type: 'exact', path: '/service-manual/service-standard' }
       ],
       schema_name: 'service_manual_service_standard',
-      title: 'Digital Service Standard',
+      title: "Digital Service Standard",
       details: {
         introduction: "The Digital Service Standard is a set of 18 criteria to help government create and run good digital services.",
         body: "All public facing transactional services must meet the standard. It’s used by departments and the Government Digital Service to check whether a service is good enough for public use.",
@@ -40,7 +35,7 @@ RSpec.describe ServiceStandardPresenter, "#content_payload" do
     }
 
     expect(
-      described_class.new([point]).content_payload
+      described_class.new(model).content_payload
     ).to eq(expected_payload)
   end
 
@@ -70,7 +65,7 @@ RSpec.describe ServiceStandardPresenter, "#content_payload" do
       ]
 
     expect(
-      described_class.new(Point.all).content_payload[:details][:points]
+      described_class.new(ServiceStandard.new).content_payload[:details][:points]
     ).to match_array(expected_points_payload)
   end
 end
