@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '5.0.1'
+gem 'rails', '5.2.2'
 gem 'pg'
 gem 'sass-rails'
 gem 'uglifier'
@@ -15,7 +15,7 @@ gem 'diffy'
 gem 'gds-api-adapters'
 gem 'gds-sso'
 gem 'govspeak'
-gem "govuk_app_config", "~> 1.8.0"
+gem "govuk_app_config", "~> 1.10.0"
 gem 'highline'
 gem 'kaminari'
 gem 'redcarpet'
@@ -38,16 +38,14 @@ group :development, :test do
   gem 'pry-remote'
   gem 'rspec-rails', '~> 3.8'
   gem 'simplecov', require: false
-  gem 'simplecov-rcov', require: false
 end
 
 group :test do
-  gem 'capybara'
   gem 'database_cleaner'
-  gem 'factory_bot_rails', '~> 4.11.0'
+  gem 'factory_bot_rails', '~> 4.11.1'
   gem 'govuk-content-schema-test-helpers'
+  gem 'govuk_test'
   gem 'launchy'
-  gem 'poltergeist'
   gem 'rails-controller-testing'
   gem 'webmock'
 end
